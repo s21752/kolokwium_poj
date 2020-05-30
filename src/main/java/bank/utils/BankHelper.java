@@ -58,4 +58,23 @@ public class BankHelper {
 
         return accountNumberBankIdentificator.equals(bankIdentificator);
     }
+
+    // had to modify it a little because I thought that user can have more than one account in the same bank...
+    public BigDecimal topUpAccount(BigDecimal topUpAmount, User user, String accountNumber) {
+        Optional<List<Account>> accounts = getAccountsForUser(user);
+
+        BigDecimal newAmount = topUpAmount;
+
+        if (accounts.isPresent()) {
+            Optional<Account> currentAccount = accounts.get().stream().filter(account ->
+                    account.getAccountNumber() == accountNumber).findFirst();
+
+            if (currentAccount.isPresent()) {
+                newAmount.add(currentAccount.get().getCashAmount());
+                currentAccount.get().setCashAmount(newAmount);
+            }
+        }
+
+        return newAmount;
+    }
 }
