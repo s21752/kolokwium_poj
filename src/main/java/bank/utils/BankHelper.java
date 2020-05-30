@@ -8,6 +8,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static bank.account.Account.BANK_IDENTIFICATOR_END_INDEX;
+import static bank.account.Account.BANK_IDENTIFICATOR_START_INDEX;
+
 public class BankHelper {
 
     private Bank currentBank;
@@ -44,5 +47,15 @@ public class BankHelper {
             System.out.println("No user found in this bank");
             return Optional.empty();
         }
+    }
+
+    public boolean checkBankAndAccountCorrelation(Account account) {
+        String accountNumberBankIdentificator = account.getAccountNumber()
+                .replaceAll("\\s", "")
+                .substring(BANK_IDENTIFICATOR_START_INDEX, BANK_IDENTIFICATOR_END_INDEX);
+
+        String bankIdentificator = currentBank.getBankIdentificator().replaceAll("\\s", "");
+
+        return accountNumberBankIdentificator.equals(bankIdentificator);
     }
 }

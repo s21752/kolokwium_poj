@@ -6,6 +6,9 @@ import java.math.BigDecimal;
 
 public class Account {
 
+    public final static int BANK_IDENTIFICATOR_START_INDEX = 3;
+    public final static int BANK_IDENTIFICATOR_END_INDEX = 3 + 4;
+
     @AccountNumber
     private final String accountNumber;
     private BigDecimal cashAmount;
