@@ -1,11 +1,14 @@
 package bank.account;
 
+import bank.account.validation.AccountNumber;
+
 import java.math.BigDecimal;
 
 public class Account {
 
-    private BigDecimal cashAmount;
+    @AccountNumber
     private final String accountNumber;
+    private BigDecimal cashAmount;
 
     private final int userId;
 

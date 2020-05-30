@@ -1,1 +1,7 @@
+bank\user\User.class
+bank\account\validation\AccountNumberValidator.class
 Main.class
+bank\Bank.class
+bank\account\validation\AccountNumber.class
+utils\validation\ValidationHelper.class
+bank\account\Account.class
