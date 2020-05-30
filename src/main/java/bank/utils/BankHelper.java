@@ -1,6 +1,12 @@
 package bank.utils;
 
 import bank.Bank;
+import bank.account.Account;
+import bank.user.User;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class BankHelper {
 
@@ -16,5 +22,16 @@ public class BankHelper {
 
         instance.currentBank = bank;
         return instance;
+    }
+
+    public BigDecimal accountsBalance(User user) {
+        List<Account> accounts = currentBank.getFullUser(user.getUserId()).getAccounts();
+
+        List<BigDecimal> cashAmountsOnEveryAccount = accounts.stream().map(Account::getCashAmount).collect(Collectors.toList());
+
+        BigDecimal sum = new BigDecimal(0);
+        cashAmountsOnEveryAccount.forEach(sum::add);
+
+        return sum;
     }
 }
