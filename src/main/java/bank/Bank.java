@@ -3,6 +3,7 @@ package bank;
 import bank.account.Account;
 import bank.user.User;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -34,7 +35,7 @@ public class Bank {
                             account.getUserId() == currentUser.get().getUserId()).collect(Collectors.toList())
             );
         else
-            throw new RuntimeException(NO_USER_FOUND_ERROR_MESSAGE);
+            throw new NoUserException();
     }
 
     public String getBankName() {
@@ -82,6 +83,13 @@ public class Bank {
 
         public void setAccounts(List<Account> accounts) {
             this.accounts = accounts;
+        }
+    }
+
+    public static class NoUserException extends RuntimeException {
+
+        public NoUserException() {
+            super(NO_USER_FOUND_ERROR_MESSAGE);
         }
     }
 }

@@ -3,9 +3,9 @@ package bank.utils;
 import bank.Bank;
 import bank.account.Account;
 import bank.user.User;
-
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class BankHelper {
@@ -33,5 +33,16 @@ public class BankHelper {
         cashAmountsOnEveryAccount.forEach(sum::add);
 
         return sum;
+    }
+
+    public Optional<List<Account>> getAccountsForUser(User user) {
+
+        try {
+            Bank.FullBankUser bankUser = currentBank.getFullUser(user.getUserId());
+            return Optional.of(bankUser.getAccounts());
+        } catch (Bank.NoUserException e) {
+            System.out.println("No user found in this bank");
+            return Optional.empty();
+        }
     }
 }
